@@ -1,0 +1,34 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+.ipynb_checkpoints/
+.jupyter/
+.vscode/
+
+.env
+.env.*
+
+.venv/
+venv/
+env/
+
+node_modules/
+dist/
+build/
+
+.DS_Store
+Thumbs.db
+
+# Local dataset folders are not needed for the deployed Streamlit app.
+Training/
+Testing/
+
+# External UI prototypes used only as design references.
+MRI Scanner V1/
+MRI Scanner V2/
+
+# Original assignment/reference files kept locally.
+Indicaciones - Redes Neuronales.pdf
+01_cnn_baseline.ipynb
+03_transfer_learning.ipynb

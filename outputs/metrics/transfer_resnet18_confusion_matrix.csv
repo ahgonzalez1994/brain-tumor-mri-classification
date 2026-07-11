@@ -1,0 +1,5 @@
+,pred_glioma,pred_meningioma,pred_notumor,pred_pituitary
+real_glioma,283,81,34,2
+real_meningioma,9,340,33,18
+real_notumor,0,3,397,0
+real_pituitary,1,8,1,390

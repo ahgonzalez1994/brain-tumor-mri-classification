@@ -1,0 +1,26 @@
+{
+    "model_name": "cnn_baseline",
+    "best_epoch": 12,
+    "best_val_loss": 0.34390975620065417,
+    "test_loss": 0.670204931795597,
+    "test_accuracy": 0.793125,
+    "test_precision_macro": 0.8192999173894114,
+    "test_recall_macro": 0.7931250000000001,
+    "test_f1_macro": 0.786021289913395,
+    "class_names": [
+        "glioma",
+        "meningioma",
+        "notumor",
+        "pituitary"
+    ],
+    "image_size": 224,
+    "batch_size": 32,
+    "learning_rate_initial": 0.001,
+    "weight_decay": 0.0001,
+    "num_train_images": 4480,
+    "num_val_images": 1120,
+    "num_test_images": 1600,
+    "model_path": "c:\\Users\\admin\\Desktop\\Maestria en BI y Analisis de Datos\\M3\\06 - Redes Neuronales y Deep Learning\\Proyecto Final\\models\\cnn_baseline_best.pth",
+    "confusion_matrix_path": "c:\\Users\\admin\\Desktop\\Maestria en BI y Analisis de Datos\\M3\\06 - Redes Neuronales y Deep Learning\\Proyecto Final\\outputs\\figures\\cnn_baseline_confusion_matrix.png",
+    "training_curves_path": "c:\\Users\\admin\\Desktop\\Maestria en BI y Analisis de Datos\\M3\\06 - Redes Neuronales y Deep Learning\\Proyecto Final\\outputs\\figures\\cnn_baseline_training_curves.png"
+}

@@ -1,0 +1,11 @@
+file_name,image_path,true_class,predicted_class,confidence,is_correct
+Te-gl_2.jpg,c:\Users\admin\Desktop\Maestria en BI y Analisis de Datos\M3\06 - Redes Neuronales y Deep Learning\Proyecto Final\Testing\glioma\Te-gl_2.jpg,glioma,glioma,0.7117337584495544,True
+Te-gl_206.jpg,c:\Users\admin\Desktop\Maestria en BI y Analisis de Datos\M3\06 - Redes Neuronales y Deep Learning\Proyecto Final\Testing\glioma\Te-gl_206.jpg,glioma,glioma,0.9996058344841003,True
+Te-gl_331.jpg,c:\Users\admin\Desktop\Maestria en BI y Analisis de Datos\M3\06 - Redes Neuronales y Deep Learning\Proyecto Final\Testing\glioma\Te-gl_331.jpg,glioma,glioma,0.9685709476470947,True
+Te-me_284.jpg,c:\Users\admin\Desktop\Maestria en BI y Analisis de Datos\M3\06 - Redes Neuronales y Deep Learning\Proyecto Final\Testing\meningioma\Te-me_284.jpg,meningioma,meningioma,0.820545494556427,True
+Te-aug-me_18.jpg,c:\Users\admin\Desktop\Maestria en BI y Analisis de Datos\M3\06 - Redes Neuronales y Deep Learning\Proyecto Final\Testing\meningioma\Te-aug-me_18.jpg,meningioma,meningioma,0.9863491058349609,True
+Te-me_265.jpg,c:\Users\admin\Desktop\Maestria en BI y Analisis de Datos\M3\06 - Redes Neuronales y Deep Learning\Proyecto Final\Testing\meningioma\Te-me_265.jpg,meningioma,meningioma,0.8599231839179993,True
+Te-no_190.jpg,c:\Users\admin\Desktop\Maestria en BI y Analisis de Datos\M3\06 - Redes Neuronales y Deep Learning\Proyecto Final\Testing\notumor\Te-no_190.jpg,notumor,notumor,0.9866189360618591,True
+Te-no_69.jpg,c:\Users\admin\Desktop\Maestria en BI y Analisis de Datos\M3\06 - Redes Neuronales y Deep Learning\Proyecto Final\Testing\notumor\Te-no_69.jpg,notumor,notumor,0.9999701976776123,True
+Te-pi_399.jpg,c:\Users\admin\Desktop\Maestria en BI y Analisis de Datos\M3\06 - Redes Neuronales y Deep Learning\Proyecto Final\Testing\pituitary\Te-pi_399.jpg,pituitary,pituitary,0.990766167640686,True
+Te-pi_62.jpg,c:\Users\admin\Desktop\Maestria en BI y Analisis de Datos\M3\06 - Redes Neuronales y Deep Learning\Proyecto Final\Testing\pituitary\Te-pi_62.jpg,pituitary,pituitary,0.9936256408691406,True
