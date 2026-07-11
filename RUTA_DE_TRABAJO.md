@@ -1,4 +1,4 @@
-# Ruta de trabajo - Proyecto Final CNN y Transfer Learning
+# Ruta de trabajo actualizada - Proyecto Final CNN y Transfer Learning
 
 ## 1. Objetivo del proyecto
 
@@ -9,26 +9,42 @@ Construir un proyecto academico completo para clasificar imagenes de resonancia 
 - `notumor`
 - `pituitary`
 
-El proyecto comparara dos enfoques:
+El proyecto compara dos enfoques:
 
-- CNN baseline entrenada desde cero.
-- Transfer learning con un modelo preentrenado liviano, preferiblemente ResNet18.
+- Una CNN baseline entrenada desde cero.
+- Un modelo con transfer learning basado en ResNet18.
 
-El entregable principal seran dos notebooks independientes y reproducibles. Como cierre demostrativo se construira una app en Streamlit Cloud para subir una imagen, elegir modelo y ver la prediccion.
+Ademas de los notebooks, se incluye una app en Streamlit para cargar una imagen MRI, elegir el modelo y visualizar la prediccion.
 
-## 2. Archivos base del proyecto
+## 2. Entregables principales
 
-Los archivos madre que guiaran el desarrollo son:
+Los entregables finales del proyecto son:
 
-- `01_cnn_baseline.ipynb`
-- `03_transfer_learning.ipynb`
-- `Indicaciones - Redes Neuronales.pdf`
+```text
+01-Tumor_CNN_Baseline.ipynb
+02-Tumor_Transfer_Learning.ipynb
+app/app.py
+app/model_utils.py
+app/ui_styles.py
+README.md
+requirements.txt
+models/cnn_baseline_best.pth
+models/transfer_resnet18.pth
+outputs/
+```
 
-Los notebooks actuales son una base de estructura y estilo, pero deben adaptarse al dataset real del proyecto. No se usaran repositorios externos de GitHub como base de implementacion.
+Los notebooks originales usados como referencia local fueron:
 
-## 3. Dataset local
+```text
+01_cnn_baseline.ipynb
+03_transfer_learning.ipynb
+```
 
-La estructura del dataset ya esta dividida en training y testing:
+Estos notebooks de referencia no forman parte del entregable principal en GitHub.
+
+## 3. Dataset
+
+El dataset local esta organizado en:
 
 ```text
 Training/
@@ -44,261 +60,141 @@ Testing/
   pituitary/
 ```
 
-Conteo verificado:
+Distribucion verificada:
 
-```text
-Training:
-  glioma       1400
-  meningioma   1400
-  notumor      1400
-  pituitary    1400
+| Conjunto | glioma | meningioma | notumor | pituitary | Total |
+|---|---:|---:|---:|---:|---:|
+| Training | 1400 | 1400 | 1400 | 1400 | 5600 |
+| Testing | 400 | 400 | 400 | 400 | 1600 |
+| Total | 1800 | 1800 | 1800 | 1800 | 7200 |
 
-Testing:
-  glioma        400
-  meningioma    400
-  notumor       400
-  pituitary     400
-```
-
-Total:
-
-- 5,600 imagenes de entrenamiento.
-- 1,600 imagenes de prueba.
-- 7,200 imagenes en total.
-
-Hallazgos tecnicos iniciales:
+Hallazgos tecnicos:
 
 - El dataset esta balanceado por clase.
-- Hay mezcla de imagenes RGB y escala de grises.
-- Hay imagenes con diferentes dimensiones.
-- Algunas imagenes son 512x512, pero otras son mas pequenas o no cuadradas.
-- Por eso el preprocesamiento debe normalizar tamano, canales y escala numerica antes de entrenar.
+- Existen imagenes con diferentes dimensiones.
+- Existen modos de color `L`, `RGB`, `RGBA` y `P`.
+- Se justifica convertir todo a `RGB`, redimensionar a `224x224` y normalizar antes de la inferencia.
 
-## 4. Estructura de carpetas acordada
+Nota para GitHub: `Training/` y `Testing/` se mantienen fuera del repositorio por volumen. Los notebooks esperan esas carpetas localmente si se desea reproducir el entrenamiento completo.
 
-La estructura local del proyecto queda asi:
+## 4. Entorno
+
+Entorno usado:
 
 ```text
-Proyecto Final/
-  Training/
-  Testing/
-  app/
-  models/
-  outputs/
-    figures/
-    metrics/
-  01_cnn_baseline.ipynb
-  03_transfer_learning.ipynb
-  Indicaciones - Redes Neuronales.pdf
-  GIT_AND_GITHUB_GUIDE.md
-  requirements.txt
-  RUTA_DE_TRABAJO.md
+tumor_cnn_baseline
 ```
 
-Uso previsto:
+Version recomendada:
 
-- `app/`: codigo de Streamlit.
-- `models/`: pesos entrenados de la CNN baseline y transfer learning.
-- `outputs/figures/`: graficas, matrices de confusion, ejemplos visuales, curvas de entrenamiento.
-- `outputs/metrics/`: archivos JSON/CSV con metricas finales.
-- `requirements.txt`: dependencias reproducibles del proyecto.
-- `RUTA_DE_TRABAJO.md`: documento de coordinacion para no perder contexto.
-
-## 5. Entorno recomendado
-
-Se recomienda usar Conda con Python 3.11.
-
-Nombre sugerido:
-
-```bash
-brain-tumor-cnn
+```text
+Python 3.11
 ```
 
-Comandos propuestos:
+Comandos base:
 
 ```bash
-conda create -n brain-tumor-cnn python=3.11 -y
-conda activate brain-tumor-cnn
+conda create -n tumor_cnn_baseline python=3.11 -y
+conda activate tumor_cnn_baseline
 pip install -r requirements.txt
-python -m ipykernel install --user --name brain-tumor-cnn --display-name "Python (brain-tumor-cnn)"
+python -m ipykernel install --user --name tumor_cnn_baseline --display-name "Python (tumor_cnn_baseline)"
 ```
 
-Razon para usar Python 3.11:
+## 5. Notebook CNN baseline
 
-- Buena compatibilidad con PyTorch, torchvision, Streamlit, scikit-learn, Pillow y Jupyter.
-- Menor riesgo de friccion que Python 3.12 en proyectos de deep learning.
-
-## 6. Forma de trabajo acordada
-
-El trabajo se realizara paso por paso.
-
-Para cada paso de notebook se entregara:
-
-1. Un bloque Markdown separado.
-2. Un bloque de codigo separado.
-
-No se avanzara al siguiente paso hasta finalizar el paso actual.
-
-Cuando un bloque de codigo genere resultados que deban interpretarse, se pedira al usuario que comparta el resultado antes de escribir la explicacion final de ese paso.
-
-No se pedira resultado al usuario para bloques puramente preparatorios, por ejemplo:
-
-- Imports.
-- Definicion de constantes.
-- Creacion de funciones auxiliares.
-- Configuracion de semillas.
-
-Si un bloque produce conteos, tablas, graficas, metricas, entrenamiento o evaluacion, entonces si se pedira el resultado antes de continuar.
-
-## 7. Estructura identica para ambos notebooks
-
-Los dos notebooks deben tener estructura practicamente identica para que la comparacion sea clara.
-
-Estructura base:
-
-1. Titulo y objetivo del notebook.
-2. Contexto del problema.
-3. Configuracion del entorno.
-4. Imports y semillas.
-5. Rutas y parametros globales.
-6. EDA del dataset.
-7. Preprocesamiento.
-8. Data augmentation.
-9. Carga de datasets y dataloaders.
-10. Definicion del modelo.
-11. Funciones de entrenamiento y evaluacion.
-12. Entrenamiento.
-13. Curvas de entrenamiento.
-14. Evaluacion en test.
-15. Matriz de confusion.
-16. Reporte de clasificacion.
-17. Inferencia sobre 10 imagenes representativas.
-18. Guardado de modelo, metricas y figuras.
-19. Conclusiones del notebook.
-
-La diferencia principal sera la seccion de modelo:
-
-- En baseline: arquitectura CNN propia desde cero.
-- En transfer learning: modelo preentrenado con cabeza clasificadora adaptada a 4 clases.
-
-## 8. Notebook 1 - CNN baseline
-
-Archivo:
+Archivo final:
 
 ```text
-01_cnn_baseline.ipynb
+01-Tumor_CNN_Baseline.ipynb
 ```
 
-Objetivo:
+Contenido principal:
 
-Entrenar una CNN propia desde cero para clasificar las cuatro clases del dataset.
-
-Decisiones tecnicas previstas:
-
-- Input size inicial: 224x224.
-- Convertir todo a 3 canales.
-- Normalizacion consistente.
-- Split de validacion desde `Training/`.
-- Mantener `Testing/` exclusivamente para evaluacion final.
-- Usar `CrossEntropyLoss`.
-- Usar optimizador Adam.
-- Incluir Batch Normalization.
-- Incluir Dropout.
-- Implementar Early Stopping.
-- Guardar el mejor modelo por validation loss.
-
-Artefactos esperados:
-
-- `models/cnn_baseline.pth`
-- `outputs/metrics/cnn_baseline_metrics.json`
-- `outputs/figures/cnn_baseline_training_curves.png`
-- `outputs/figures/cnn_baseline_confusion_matrix.png`
-
-## 9. Notebook 2 - Transfer learning
-
-Archivo:
-
-```text
-03_transfer_learning.ipynb
-```
-
-Objetivo:
-
-Entrenar un modelo con transfer learning y compararlo contra la CNN baseline.
-
-Decisiones tecnicas previstas:
-
-- Modelo sugerido: ResNet18.
-- Pesos preentrenados de ImageNet.
-- Input size: 224x224.
-- Normalizacion ImageNet.
-- Congelar capas base al inicio.
-- Entrenar cabeza clasificadora para 4 clases.
-- Si los resultados lo justifican, hacer fine-tuning parcial de las ultimas capas.
-- Guardar el mejor modelo por validation loss.
-
-Artefactos esperados:
-
-- `models/transfer_resnet18.pth`
-- `outputs/metrics/transfer_resnet18_metrics.json`
-- `outputs/figures/transfer_resnet18_training_curves.png`
-- `outputs/figures/transfer_resnet18_confusion_matrix.png`
-
-## 10. EDA que se documentara
-
-El EDA sera visual y tecnico, apropiado para imagenes.
-
-Puntos incluidos:
-
-- Conteo por clase y split.
-- Confirmacion de balance del dataset.
-- Ejemplos visuales por clase.
-- Revision de dimensiones de imagen.
-- Revision de canales RGB vs escala de grises.
-- Identificacion de necesidad de resize.
-- Identificacion de necesidad de convertir a 3 canales.
-- Justificacion de normalizacion.
-- Discusion breve de overfitting en imagenes medicas.
-- Discusion breve de domain gap para transfer learning con ImageNet.
-
-## 11. Inferencia sobre 10 imagenes
-
-El PDF pide validar el modelo final mediante inferencia sobre una muestra de diez imagenes externas o representativas.
-
-Plan:
-
-- Seleccionar 10 imagenes representativas desde `Testing/`.
-- Mantener mezcla de las cuatro clases.
-- Ejecutar inferencia con baseline.
-- Ejecutar inferencia con transfer learning.
-- Mostrar imagen, etiqueta real, prediccion y confianza.
-- Guardar resultados en una tabla.
-
-Artefacto esperado:
-
-- `outputs/metrics/inference_10_samples.csv`
-
-## 12. Comparacion final
-
-Se compararan ambos enfoques usando:
-
-- Accuracy.
-- Precision macro.
-- Recall macro.
-- F1 macro.
+- Validacion de estructura del dataset.
+- Conteo de imagenes por clase y split.
+- EDA visual y tecnico.
+- Conversion a `RGB`.
+- Redimensionamiento a `224x224`.
+- Normalizacion con media y desviacion `(0.5, 0.5, 0.5)`.
+- Data augmentation para entrenamiento.
+- Split train/validation desde `Training/`.
+- Evaluacion final exclusiva en `Testing/`.
+- CNN propia con bloques Conv2D, BatchNorm, ReLU y MaxPool.
+- Entrenamiento con `CrossEntropyLoss`, Adam, weight decay y scheduler.
+- Early stopping por validation loss.
 - Matriz de confusion.
-- Observaciones sobre errores frecuentes.
-- Tiempo aproximado de entrenamiento si se registra.
-- Facilidad de despliegue.
+- Inferencia sobre 10 imagenes representativas.
+- Guardado de modelo, metricas y figuras.
 
-La conclusion debe responder:
+Resultado final en Testing:
 
-- Cual modelo tuvo mejor desempeno.
-- Si transfer learning ayudo o no.
-- Que tradeoffs tuvo cada enfoque.
-- Que limitaciones mantiene el proyecto.
+| Metrica | Valor |
+|---|---:|
+| Test Loss | 0.6702 |
+| Accuracy | 0.7931 |
+| Precision Macro | 0.8193 |
+| Recall Macro | 0.7931 |
+| F1 Macro | 0.7860 |
 
-## 13. Streamlit app
+Modelo guardado:
+
+```text
+models/cnn_baseline_best.pth
+```
+
+## 6. Notebook Transfer Learning
+
+Archivo final:
+
+```text
+02-Tumor_Transfer_Learning.ipynb
+```
+
+Contenido principal:
+
+- Misma estructura general del notebook baseline.
+- Uso de ResNet18 preentrenado en ImageNet.
+- Conversion a `RGB`.
+- Redimensionamiento a `224x224`.
+- Normalizacion con media y desviacion de ImageNet.
+- Entrenamiento inicial con backbone congelado y cabeza clasificadora adaptada a 4 clases.
+- Fine-tuning parcial descongelando `layer4` y `fc`.
+- Evaluacion final exclusiva en `Testing/`.
+- Matriz de confusion.
+- Inferencia sobre 10 imagenes representativas.
+- Comparacion contra la CNN baseline.
+
+Resultado final en Testing:
+
+| Metrica | Valor |
+|---|---:|
+| Test Loss | 0.4356 |
+| Accuracy | 0.8813 |
+| Precision Macro | 0.8895 |
+| Recall Macro | 0.8813 |
+| F1 Macro | 0.8787 |
+
+Modelo guardado:
+
+```text
+models/transfer_resnet18.pth
+```
+
+## 7. Comparacion final
+
+| Modelo | Test Loss | Accuracy | Precision Macro | Recall Macro | F1 Macro |
+|---|---:|---:|---:|---:|---:|
+| CNN Baseline | 0.6702 | 0.7931 | 0.8193 | 0.7931 | 0.7860 |
+| Transfer Learning ResNet18 | 0.4356 | 0.8813 | 0.8895 | 0.8813 | 0.8787 |
+
+Conclusiones tecnicas:
+
+- ResNet18 con transfer learning fue superior en todas las metricas principales.
+- La CNN baseline fue util como punto de comparacion y obtuvo resultados razonables.
+- La mayor dificultad del baseline se observo en confusiones entre `glioma` y `meningioma`.
+- El transfer learning aprovecho caracteristicas visuales preentrenadas y mejoro la generalizacion.
+
+## 8. App Streamlit
 
 Carpeta:
 
@@ -306,108 +202,109 @@ Carpeta:
 app/
 ```
 
-Objetivo:
+Archivos:
 
-Construir una demo web ligera para Streamlit Cloud.
+```text
+app/app.py
+app/model_utils.py
+app/ui_styles.py
+```
 
-Funciones minimas:
+Funciones implementadas:
 
-- Subir imagen MRI.
-- Elegir modelo: CNN baseline o transfer learning.
-- Mostrar preview de la imagen.
-- Ejecutar preprocesamiento compatible con el modelo elegido.
-- Mostrar clase predicha.
-- Mostrar confianza del modelo.
-- Mostrar probabilidades por clase.
-- Mostrar metricas resumidas del proyecto.
-- Incluir disclaimer academico/no medico.
+- Subida de imagen MRI en formato `jpg`, `jpeg` o `png`.
+- Selector entre `CNN Baseline` y `Transfer Learning - ResNet18`.
+- Preview de la imagen cargada.
+- Lectura de dimensiones y modo original de la imagen.
+- Preprocesamiento compatible con el modelo elegido.
+- Carga de modelos `.pth`.
+- Prediccion de clase.
+- Confianza del modelo.
+- Probabilidades por clase.
+- Comparacion de metricas finales.
+- Disclaimer academico/no medico.
 
-Funciones opcionales:
+Ejecucion local:
 
-- Comparar ambos modelos con la misma imagen.
-- Mostrar matriz de confusion guardada.
-- Mostrar curvas de entrenamiento guardadas.
-- Mejorar UI/UX con inspiracion de Google Stitch.
+```bash
+conda activate tumor_cnn_baseline
+streamlit run app/app.py
+```
 
-No se entrenaran modelos dentro de la app.
+Alternativa:
 
-## 14. README final
+```bash
+python -m streamlit run app/app.py
+```
 
-El README se hara al final, cuando existan resultados reales.
+La app no entrena modelos. Solo carga los checkpoints ya generados por los notebooks.
 
-Debe incluir:
+## 9. Git y GitHub
 
-- Descripcion del proyecto.
-- Dataset y clases.
-- Estructura del repositorio.
-- Instalacion del entorno.
-- Ejecucion de notebooks.
-- Ejecucion de Streamlit local.
-- Resultados principales.
-- Link de Streamlit Cloud.
-- Limitaciones.
-- Disclaimer academico.
+Se inicializo un repositorio Git local y se realizo un primer commit:
 
-## 15. Orden cronologico de ejecucion
+```text
+Add brain tumor classification project
+```
 
-Fase 1 - Preparacion:
+Repositorio remoto:
 
-- Crear estructura de carpetas.
-- Crear `requirements.txt`.
-- Crear `RUTA_DE_TRABAJO.md`.
-- Crear entorno Conda.
-- Instalar dependencias.
-- Registrar kernel Jupyter.
+```text
+https://github.com/ahgonzalez1994/brain-tumor-mri-classification
+```
 
-Fase 2 - Baseline:
+Se activo Git LFS para archivos `.pth`:
 
-- Adaptar notebook baseline paso por paso.
-- Ejecutar EDA.
-- Entrenar CNN desde cero.
-- Evaluar en test.
-- Guardar artefactos.
+```text
+*.pth filter=lfs diff=lfs merge=lfs -text
+```
 
-Fase 3 - Transfer learning:
+Los modelos quedaron manejados por LFS:
 
-- Adaptar notebook transfer paso por paso.
-- Reusar estructura del baseline.
-- Entrenar cabeza clasificadora.
-- Evaluar en test.
-- Guardar artefactos.
+```text
+models/cnn_baseline_best.pth
+models/transfer_resnet18.pth
+```
 
-Fase 4 - Comparacion:
+Archivos/carpetas excluidas del repositorio:
 
-- Consolidar metricas.
-- Comparar modelos.
-- Ejecutar inferencia de 10 imagenes.
-- Redactar conclusiones.
+```text
+Training/
+Testing/
+MRI Scanner V1/
+MRI Scanner V2/
+.vscode/
+Indicaciones - Redes Neuronales.pdf
+01_cnn_baseline.ipynb
+03_transfer_learning.ipynb
+```
 
-Fase 5 - App:
+## 10. Despliegue pendiente
 
-- Crear Streamlit app.
-- Integrar modelos guardados.
-- Integrar metricas y visuales.
-- Probar localmente.
-- Preparar deploy en Streamlit Cloud.
+Siguiente paso recomendado:
 
-Fase 6 - Documentacion:
+1. Entrar a Streamlit Cloud.
+2. Conectar el repositorio de GitHub.
+3. Seleccionar:
 
-- Crear README final.
-- Revisar dependencias.
-- Verificar rutas relativas.
-- Revisar que notebooks ejecuten en orden.
-- Preparar repositorio privado de GitHub.
+```text
+app/app.py
+```
 
-## 16. Criterios de finalizacion
+4. Verificar instalacion desde `requirements.txt`.
+5. Confirmar que Streamlit Cloud pueda descargar correctamente los modelos guardados con Git LFS.
+6. Compartir el enlace publico de la app.
 
-El proyecto se considerara listo cuando:
+## 11. Criterios de finalizacion
 
-- Los dos notebooks esten completos y ejecutables.
-- Ambos modelos hayan sido evaluados sobre `Testing/`.
-- Existan metricas comparables.
-- Exista inferencia sobre 10 imagenes.
-- Los modelos esten guardados.
-- La app Streamlit pueda cargar al menos un modelo y predecir.
-- El README explique como reproducir el trabajo.
-- El repositorio este organizado para entrega.
+El proyecto se considera completo cuando:
+
+- Los dos notebooks finales estan completos.
+- Ambos modelos fueron evaluados con `Testing/`.
+- Las metricas comparativas estan guardadas.
+- Las figuras principales estan en `outputs/figures/`.
+- La app Streamlit funciona localmente.
+- El README explica ejecucion local, resultados y despliegue.
+- El repositorio esta en GitHub.
+- La app queda desplegada o lista para desplegar en Streamlit Cloud.
 
