@@ -214,6 +214,12 @@ El segundo notebook carga las metricas generadas por el baseline para realizar l
 
 La carpeta `app/` contiene una aplicacion web local desarrollada con Streamlit para probar los modelos entrenados sin volver a ejecutar los notebooks.
 
+App en vivo:
+
+```text
+https://ahg-nxp-brain-tumor-mri.streamlit.app/
+```
+
 Estructura principal:
 
 ```text
@@ -257,18 +263,21 @@ La app no entrena modelos; solo carga los checkpoints ya guardados en `models/` 
 
 ## Despliegue en Streamlit Cloud
 
-Para que otra persona pueda probar la app sin instalar Python, Conda ni los notebooks, se recomienda desplegarla en Streamlit Cloud:
+La app fue desplegada en Streamlit Cloud y puede probarse desde:
 
-1. Subir el proyecto a GitHub.
-2. Conectar el repositorio en Streamlit Cloud.
-3. Seleccionar como archivo principal:
+```text
+https://ahg-nxp-brain-tumor-mri.streamlit.app/
+```
+
+Configuracion usada para el despliegue:
+
+- Repositorio: `ahgonzalez1994/brain-tumor-mri-classification`
+- Branch: `main`
+- Archivo principal:
 
 ```text
 app/app.py
 ```
-
-4. Verificar que `requirements.txt` incluya las dependencias necesarias.
-5. Compartir el enlace publico generado por Streamlit Cloud.
 
 Nota importante: `models/transfer_resnet18.pth` pesa mas de 100 MB. GitHub puede rechazar archivos mayores a ese limite si se suben de forma tradicional. Para despliegue puede ser necesario usar Git LFS o alojar el modelo externamente y descargarlo durante el inicio de la app.
 

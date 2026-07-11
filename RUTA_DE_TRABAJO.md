@@ -279,21 +279,27 @@ Indicaciones - Redes Neuronales.pdf
 03_transfer_learning.ipynb
 ```
 
-## 10. Despliegue pendiente
+## 10. Despliegue Streamlit Cloud
 
-Siguiente paso recomendado:
+La app fue desplegada en Streamlit Cloud.
 
-1. Entrar a Streamlit Cloud.
-2. Conectar el repositorio de GitHub.
-3. Seleccionar:
+Link publico:
+
+```text
+https://ahg-nxp-brain-tumor-mri.streamlit.app/
+```
+
+Configuracion usada:
+
+- Repositorio: `ahgonzalez1994/brain-tumor-mri-classification`
+- Branch: `main`
+- Archivo principal:
 
 ```text
 app/app.py
 ```
 
-4. Verificar instalacion desde `requirements.txt`.
-5. Confirmar que Streamlit Cloud pueda descargar correctamente los modelos guardados con Git LFS.
-6. Compartir el enlace publico de la app.
+El enlace tambien fue agregado al apartado `About` del repositorio en GitHub como website del proyecto.
 
 ## 11. Criterios de finalizacion
 
@@ -306,5 +312,4 @@ El proyecto se considera completo cuando:
 - La app Streamlit funciona localmente.
 - El README explica ejecucion local, resultados y despliegue.
 - El repositorio esta en GitHub.
-- La app queda desplegada o lista para desplegar en Streamlit Cloud.
-
+- La app queda desplegada en Streamlit Cloud.
