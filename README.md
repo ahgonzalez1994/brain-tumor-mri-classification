@@ -317,11 +317,24 @@ Luego abrir la URL local indicada por Vite, por ejemplo:
 http://127.0.0.1:3000/
 ```
 
-Esta version se mantiene como fase avanzada local y base para un posible despliegue futuro en Render. El flujo detallado esta documentado en:
+Esta version se mantiene como fase avanzada y tambien incluye configuracion base para despliegue en Render mediante:
+
+```text
+render.yaml
+```
+
+El flujo detallado esta documentado en:
 
 ```text
 RUTA_RENDER_REACT_FASTAPI.md
 ```
+
+Servicios definidos para Render:
+
+- `brain-tumor-mri-api`: backend FastAPI con inferencia PyTorch.
+- `brain-tumor-mri-web`: frontend React/Vite como sitio estatico.
+
+Nota: en el plan gratuito de Render, el backend puede entrar en reposo despues de inactividad y el primer acceso puede tardar mas por cold start. La version Streamlit se mantiene como despliegue publico estable.
 
 ## Despliegue en Streamlit Cloud
 
