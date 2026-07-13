@@ -26,6 +26,9 @@ Proyecto Final/
     notumor/
     pituitary/
   app/
+  render_app/
+    backend/
+    frontend/
   models/
     cnn_baseline_best.pth
     transfer_resnet18.pth
@@ -36,6 +39,7 @@ Proyecto Final/
   02-Tumor_Transfer_Learning.ipynb
   requirements.txt
   RUTA_DE_TRABAJO.md
+  RUTA_RENDER_REACT_FASTAPI.md
   README.md
 ```
 
@@ -260,6 +264,64 @@ python -m streamlit run app/app.py
 ```
 
 La app no entrena modelos; solo carga los checkpoints ya guardados en `models/` y realiza inferencia sobre imagenes nuevas cargadas por el usuario.
+
+## App avanzada React + FastAPI
+
+Adicionalmente, la carpeta `render_app/` contiene una version web avanzada probada localmente. Esta version separa la interfaz y la inferencia:
+
+```text
+render_app/
+  backend/
+    main.py
+    model_utils.py
+    requirements.txt
+  frontend/
+    src/
+    package.json
+    vite.config.ts
+```
+
+Arquitectura:
+
+- `backend/`: API con FastAPI que carga los modelos PyTorch reales desde `models/`.
+- `frontend/`: interfaz React/Vite basada en el prototipo visual de Google AI Studio, depurada para conservar solo funciones justificadas por el proyecto.
+
+La app avanzada permite:
+
+- Subir una imagen MRI.
+- Ejecutar inferencia real con `CNN Baseline` o `Transfer Learning ResNet18`.
+- Comparar ambos modelos sobre la misma imagen activa.
+- Consultar metricas globales del conjunto de testing.
+- Ver matrices de confusion reales guardadas en `outputs/metrics/`.
+
+Para ejecutar el backend:
+
+```bash
+conda activate tumor_cnn_baseline
+cd render_app/backend
+pip install -r requirements.txt
+uvicorn main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Para ejecutar el frontend en otra terminal:
+
+```bash
+cd render_app/frontend
+npm install
+npm run dev
+```
+
+Luego abrir la URL local indicada por Vite, por ejemplo:
+
+```text
+http://127.0.0.1:3000/
+```
+
+Esta version se mantiene como fase avanzada local y base para un posible despliegue futuro en Render. El flujo detallado esta documentado en:
+
+```text
+RUTA_RENDER_REACT_FASTAPI.md
+```
 
 ## Despliegue en Streamlit Cloud
 
