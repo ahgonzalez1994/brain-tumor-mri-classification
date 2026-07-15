@@ -17,7 +17,10 @@ import {
 } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL
-  || (import.meta.env.VITE_API_HOST ? `https://${import.meta.env.VITE_API_HOST}` : "http://127.0.0.1:8000");
+  || (import.meta.env.VITE_API_HOST ? `https://${import.meta.env.VITE_API_HOST}` : undefined)
+  || (typeof window !== "undefined" && window.location.hostname.endsWith("onrender.com")
+    ? "https://brain-tumor-mri-api.onrender.com"
+    : "http://127.0.0.1:8000");
 
 const BACKEND_MODEL_ID: Record<string, string> = {
   resnet: "transfer",
