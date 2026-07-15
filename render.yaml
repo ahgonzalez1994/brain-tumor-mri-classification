@@ -16,7 +16,6 @@ services:
   - type: web
     name: brain-tumor-mri-web
     runtime: static
-    plan: free
     branch: main
     rootDir: render_app/frontend
     buildCommand: npm ci && npm run build
@@ -32,4 +31,3 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
-
