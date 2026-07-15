@@ -16,8 +16,13 @@ import {
   Play
 } from "lucide-react";
 
+const resolveRenderApiUrl = (host?: string) => {
+  if (!host) return undefined;
+  return host.includes(".") ? `https://${host}` : `https://${host}.onrender.com`;
+};
+
 const API_URL = import.meta.env.VITE_API_URL
-  || (import.meta.env.VITE_API_HOST ? `https://${import.meta.env.VITE_API_HOST}` : undefined)
+  || resolveRenderApiUrl(import.meta.env.VITE_API_HOST)
   || (typeof window !== "undefined" && window.location.hostname.endsWith("onrender.com")
     ? "https://brain-tumor-mri-api.onrender.com"
     : "http://127.0.0.1:8000");
